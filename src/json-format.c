@@ -55,6 +55,7 @@ json_string(FILE *stream, const char *value) {
                     fputc(c, stream);
                 else
                     fprintf(stream, "\\u%04x", (unsigned int)c);
+                fflush(stream);
                 break;
         }
     }
@@ -69,6 +70,7 @@ json_format(FILE *stream, unsigned flags, ...)
     enum json_token token;
     va_start(ap, flags);
     do {
+        fflush(stream);
         token = va_arg(ap, enum json_token);
         switch (token) {
             case JSON_END:
